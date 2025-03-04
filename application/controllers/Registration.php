@@ -62,48 +62,52 @@ class Registration extends CI_Controller {
 		
 	}
 
-	
 	function addemployee() {
-
-        if ($this->session->userdata('user_id') !== NULL) {
-    
-                 $this->load->model('UserModel');
-                 $userData = $this->UserModel->get_user();
-                 $data['users'] = $userData['users'];
-               
-			  
-	   	    // print_r($data['total_children']);
-            // die("hi");
-
-            $data['level'] = $this->session->userdata('level');
+		if ($this->session->userdata('user_id') !== NULL) {
+			$this->load->model('UserModel');
+			$userData = $this->UserModel->get_user();
+			$data['users'] = $userData['users'];
+			$data['level'] = $this->session->userdata('level');
 			$data['username'] = $this->session->userdata('username');
-			
 			
 			$this->load->view('includes/sliderbar', $data); 
 			$this->load->view('form');
-        } 
-		  
-		else {
-            redirect('login');
-        }
-		
-		// $this->;
+		} else {
+			redirect('login');
+		}
+	
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			// Retrieve the name from the POST request
+			// Retrieve the data from the POST request
 			$data = [
 				'username' => $this->input->post('username'),
-				'email'=>$this->input->post('email'),
-				'password'=>$this->input->post('password'),
-				'level'=>$this->input->post('level'),
-				'gender'=>$this->input->post('gender'),
-				'status'=>$this->input->post('status'),
-
- 			];
-			
-			// print_r($data);
+				'email' => $this->input->post('email'),
+				'password' => $this->input->post('password'),
+				'level' => $this->input->post('level'),
+				'gender' => $this->input->post('gender'),
+				'status' => $this->input->post('status')
+			];
+	
+			// Get the logged-in user's ID (who is creating the new user)
+			$adminId = $this->session->userdata('user_id');
+	
+			// Check the level and add the corresponding fields
+			$level = $this->input->post('level');
+			print_r($adminId);
 			// die();
-
-			 $this->load->model('UserModel');
+			
+			if ($level == 2) { // Central Admin
+				// When creating a Central Admin, set the Admin's ID in register_by_id
+				$data['register_by_id'] = $adminId; // Store Admin ID
+				$data['region'] = $this->input->post('region'); // Save region for Central Admin
+			} else if ($level == 3) { // Doctor
+				$data['register_by_id'] = $this->input->post('central_admin'); // Central Admin's ID
+			} else if ($level == 4) { // Health Worker
+				$data['register_by_id'] = $this->input->post('doctor'); // Doctor's ID
+			} else if ($level == 5) { // User
+				$data['register_by_id'] = $this->input->post('health_worker'); // Health Worker’s ID
+			}
+	
+			$this->load->model('UserModel');
 			if ($this->UserModel->insert_user($data)) {
 				echo "Data saved successfully!";
 				redirect('employee_info');
@@ -113,6 +117,7 @@ class Registration extends CI_Controller {
 			}
 		}
 	}
+	
 
 
 

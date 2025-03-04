@@ -18,8 +18,17 @@ class UserModel extends CI_Model {
         }
     }
     public function insert_user($data) {
-        // $this->db->insert('login', $data);
+        // Insert the user data into the database
         return $this->db->insert('login', $data);
+    }
+
+    public function get_users_by_level($level) {
+        $this->db->select('login_id, username');
+        $this->db->from('login');
+        $this->db->where('level', $level);
+        $query = $this->db->get();
+        
+        return $query->result_array();
     }
     public function get_user() {
         

@@ -148,5 +148,49 @@ class Dashboard extends CI_Controller {
         // Redirect back to the relevant page
         redirect('employee_info'); // Adjust this route as needed
     }
+    public function get_users_by_role() {
+        // Clean up any previous output
+        ob_clean();
+        
+        // Load the required model
+        $this->load->model('GetDetail');
+        
+        // Get the selected level from the frontend (POST request)
+        $selectedLevel = $this->input->post('selected_level');  
+        
+        // Determine the target level based on the selected level
+        $targetLevel = null;
+        if ($selectedLevel == 3) {  
+            $targetLevel = 2;  // Fetch Central Admins if "Doctor" is selected
+        } elseif ($selectedLevel == 4) {  
+            $targetLevel = 3;  // Fetch Doctors if "Health Worker" is selected
+        } elseif ($selectedLevel == 5) {  
+            $targetLevel = 4;  // Fetch Health Workers if "User" is selected
+        }
+    
+        // Fetch the users based on the target level
+        if ($targetLevel !== null) {
+            $users = $this->GetDetail->get_users_by_level($targetLevel);
+    
+            // Log the fetched users for debugging
+            log_message('debug', 'Fetched users: ' . print_r($users, true));
+    
+            // Send valid JSON response
+            header('Content-Type: application/json');
+            echo json_encode($users);
+        } else {
+            // Send an empty array if the target level is not found
+            echo json_encode([]);
+        }
+    
+        // Exit to prevent further output
+        exit();
+    }
+    
+    
+    
+    
+    
+    
     
 }
