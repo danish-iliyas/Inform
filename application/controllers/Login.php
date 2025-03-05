@@ -45,22 +45,24 @@ class Login extends CI_Controller {
 	
 			// Check user credentials
 			$user = $this->UserModel->authenticate($username, $password);
-			
-	
+			// print_r($user);
+			// die("hi");
+	             
 			if ($user) {
 				// User authenticated
+				$data =$user;
+				// print_r($data);
+				// die("hi");
 				$this->session->set_userdata('user_id', $user->login_id);
 				$this->session->set_userdata('username', $user->username);
 				// $this->session->set_userdata('email', $user->email);
 			    $this->session->set_userdata('level', $user->level); // Save user role in session
 			    
-				        //     $level = $this->session->userdata('level');
-                       //     $echo "level: " . $level;
-                      //           die();
-		
-				redirect('Dashboard');
+				       
+					  $this->load->view('dashboard', $data);
+				
 			} else {
-				// Authentication failed
+				
 				$this->session->set_flashdata('error', 'Invalid credentials');
 				redirect('Login');
 			}

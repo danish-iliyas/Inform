@@ -230,12 +230,12 @@
             <section class="stats-section">
                 <div class="stats-card">
                     <h3>Total Registrations</h3>
-                    <p> <?php echo $total_children_by_user; ?></p>
+                    <p> 0</p>
                 </div>
-                <!-- <div class="stats-card">
+                <div class="stats-card">
                     <h3>Active Users</h3>
                     <p>850</p>
-                </div> -->
+                </div>
                 <!-- <div class="stats-card">
                     <h3>New Signups</h3>
                     <p>300</p>

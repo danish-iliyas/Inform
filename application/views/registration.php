@@ -232,7 +232,7 @@
             success: function(response) {
                 var dropdown = $('#registerByDropdown');
                 dropdown.empty(); // Clear previous options
-                
+                // console.log(user.login_id,"user.login_id");
                 $.each(response, function(index, user) {
                     dropdown.append($('<option>', {
                         value: user.login_id,

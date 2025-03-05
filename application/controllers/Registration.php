@@ -86,13 +86,15 @@ class Registration extends CI_Controller {
 				'gender' => $this->input->post('gender'),
 				'status' => $this->input->post('status')
 			];
+			print_r($_POST);
+			// die("hi");	
 	
 			// Get the logged-in user's ID (who is creating the new user)
 			$adminId = $this->session->userdata('user_id');
 	
 			// Check the level and add the corresponding fields
 			$level = $this->input->post('level');
-			print_r($adminId);
+			// print_r($adminId);
 			// die();
 			
 			if ($level == 2) { // Central Admin
@@ -100,11 +102,14 @@ class Registration extends CI_Controller {
 				$data['register_by_id'] = $adminId; // Store Admin ID
 				$data['region'] = $this->input->post('region'); // Save region for Central Admin
 			} else if ($level == 3) { // Doctor
-				$data['register_by_id'] = $this->input->post('central_admin'); // Central Admin's ID
+				$data['register_by_id'] = $this->input->post('register_by_id'); // Central Admin's ID
+				print_r($data['register_by_id']);
+
+				// die("hi");
 			} else if ($level == 4) { // Health Worker
-				$data['register_by_id'] = $this->input->post('doctor'); // Doctor's ID
+				$data['register_by_id'] = $this->input->post('register_by_id'); // Doctor's ID
 			} else if ($level == 5) { // User
-				$data['register_by_id'] = $this->input->post('health_worker'); // Health Worker’s ID
+				$data['register_by_id'] = $this->input->post('register_by_id'); // Health Worker’s ID
 			}
 	
 			$this->load->model('UserModel');

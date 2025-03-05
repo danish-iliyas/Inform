@@ -22,7 +22,7 @@ class Dashboard extends CI_Controller {
 	{
         if ($this->session->userdata('user_id') !== NULL) {
             
-
+                
 			$this->load->model('ChildModel'); 
 			$level = $this->session->userdata('level');
 			$user_id = $this->session->userdata('user_id'); // Get the user ID from session
@@ -38,7 +38,7 @@ class Dashboard extends CI_Controller {
 		  $children_data = $this->ChildModel->get_children_by_user($user_id);
 
 		//   print_r($data['children']);
-        //     die();
+        //     die("hi");
 
           $data['level'] = $level;
 		  $data['username'] = $this->session->userdata('username');
