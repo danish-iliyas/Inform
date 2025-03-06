@@ -226,16 +226,36 @@
         <div class="main-content">
        
         <?php $this->load->view('includes/header'); ?>
-      
+
             <section class="stats-section">
-                <div class="stats-card">
-                    <h3>Total Registrations</h3>
-                    <p> 0</p>
+            <div style="display: flex; gap: 20px; max-width: 100%; overflow-x: auto;"> 
+    <?php if (!empty($doctors)): ?>
+        <?php foreach ($doctors as $doctor): ?>
+            <div class="stats-card" style="width: 100%;">
+                <h3>Doctor</h3>
+                <div class="doctor-cards-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div class="doctor-card" style="width: 200px; background-color: #f4f4f4; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); text-align: center;">
+                        <h4 style="margin-bottom: 10px;">
+                            <?= $doctor['username'] ?>
+                        </h4>
+                        <!-- Add a button next to the doctor's name -->
+                        <button style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;" on>
+                            View Profile
+                        </button>
+                        <!-- You can add more details here, like the doctor's specialty or ID if needed -->
+                    </div>
                 </div>
-                <div class="stats-card">
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No doctors found under this Central Admin.</p>
+    <?php endif; ?>
+</div>
+
+                <!-- <div class="stats-card">
                     <h3>Active Users</h3>
                     <p>850</p>
-                </div>
+                </div>  -->
                 <!-- <div class="stats-card">
                     <h3>New Signups</h3>
                     <p>300</p>

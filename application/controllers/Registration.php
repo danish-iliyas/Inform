@@ -100,7 +100,7 @@ class Registration extends CI_Controller {
 			if ($level == 2) { // Central Admin
 				// When creating a Central Admin, set the Admin's ID in register_by_id
 				$data['register_by_id'] = $adminId; // Store Admin ID
-				$data['region'] = $this->input->post('region'); // Save region for Central Admin
+				$data['region_id'] = $this->input->post('region_id'); // Save region for Central Admin
 			} else if ($level == 3) { // Doctor
 				$data['register_by_id'] = $this->input->post('register_by_id'); // Central Admin's ID
 				print_r($data['register_by_id']);

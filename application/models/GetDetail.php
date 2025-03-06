@@ -10,6 +10,12 @@ class GetDetail extends CI_Model {
         
         return $query->result_array();
     }
+    public function getAllRegions() {
+        $query = $this->db->get('region'); // Assuming your region table is named 'region'
+        return $query->result_array();
+
+        
+    }
 }  
 
     

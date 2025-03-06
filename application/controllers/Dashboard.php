@@ -186,6 +186,11 @@ class Dashboard extends CI_Controller {
         // Exit to prevent further output
         exit();
     }
+    public function getRegions() {
+        $this->load->model('GetDetail'); // Load your region model
+        $regions = $this->GetDetail->getAllRegions(); // Assuming this method fetches all regions from the DB
+        echo json_encode($regions); // Send regions data as JSON
+    }
     
     
     

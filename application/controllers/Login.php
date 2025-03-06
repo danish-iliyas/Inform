@@ -25,52 +25,106 @@ class Login extends CI_Controller {
 		// die();
 	}
 	public function login_post() {
-		// $this->load->library('form_validation');
-		;
 		$this->load->model('UserModel');
-		// print_r($_POST);
-		// die(); // Add the semicolon here
-	
+		
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
-		 // Add the semicolon here
+		
 		if ($this->form_validation->run() === FALSE) {
-		// 	// Load login page with validation errors
-			// print_r($_POST);
-		// die();
+			// Load login page with validation errors
 			$this->load->view('login');
 		} else {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-	
+			
 			// Check user credentials
 			$user = $this->UserModel->authenticate($username, $password);
-			// print_r($user);
-			// die("hi");
-	             
-			if ($user) {
+			
+			if ($user) { 
 				// User authenticated
-				$data =$user;
-				// print_r($data);
-				// die("hi");
 				$this->session->set_userdata('user_id', $user->login_id);
 				$this->session->set_userdata('username', $user->username);
-				// $this->session->set_userdata('email', $user->email);
-			    $this->session->set_userdata('level', $user->level); // Save user role in session
-			    
-				       
-					  $this->load->view('dashboard', $data);
+				$this->session->set_userdata('level', $user->level); // Save user level in session
 				
+				// Redirect user based on their level
+				switch ($user->level) {
+					case 1: // Admin
+						// Load admin-specific dashboard or view
+						$data['user_id'] = $this->session->userdata('user_id');
+						$data['level'] = $this->session->userdata('level');
+						$data['username'] = $this->session->userdata('username'); 
+						redirect('Dashboard');
+						$this->load->view('dashboard', $data); 
+						break;
+	
+					case 2: // Central Admin
+						// Call the function to get doctors under the Central Admin
+						$this->getAllDoctorUnderCentralAdmin();
+						break;
+	
+					case 3: // Doctor
+						// Load doctor-specific dashboard or view
+						$this->load->view('doctor_dashboard', ['username' => $user->username]);
+						break;
+	
+					case 4: // Health Worker
+						// Load health worker-specific dashboard or view
+						$this->load->view('health_worker_dashboard', ['username' => $user->username]);
+						break;
+	
+					case 5: // User
+						// Load user-specific dashboard or view
+						$this->load->view('user_dashboard', ['username' => $user->username]);
+						break;
+	
+					default:
+						// Redirect to login with error if user level is invalid
+						$this->session->set_flashdata('error', 'Invalid user level');
+						redirect('login');
+						break;
+				}
 			} else {
-				
+				// Invalid credentials, redirect back to login with error
 				$this->session->set_flashdata('error', 'Invalid credentials');
-				redirect('Login');
+				redirect('login');
 			}
-		}	
+		}
 	}
+	
 	public  function logout() {
 		$this->session->sess_destroy();
 		redirect('Login');
+	}
+	// getting all doctor for central admin 
+
+	public function getAllDoctorUnderCentralAdmin() {
+		
+		if ($this->session->userdata('user_id') !== NULL && $this->session->userdata('level') == 2) {
+			// Only allow Central Admin access (level = 2)
+			
+			$this->load->model('UserModel');
+	
+			$central_admin_id = $this->session->userdata('user_id'); // Get the current Central Admin ID
+			     $data['user_id'] = $this->session->userdata('user_id');
+				 $data['level'] = $this->session->userdata('level');
+				 $data['username'] = $this->session->userdata('username');
+			// Fetch doctors for this Central Admin
+			$data['doctors'] = $this->UserModel->getAllDoctorByCentralAdmin($central_admin_id); 
+			print_r($data['doctors']);
+			
+			// Debug doctors array
+			// print_r($data['doctors']);
+			// die("Doctor data");
+
+			 
+			// Other data (like active user count)
+			$data['doctor_count'] = count($data['doctors']); // Count of doctors
+			
+			// Load the dashboard view
+			$this->load->view('dashboard', $data);
+		} else {
+			redirect('login');
+		}
 	}
 	
 }

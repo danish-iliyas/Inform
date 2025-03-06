@@ -61,6 +61,24 @@ class UserModel extends CI_Model {
             'total_admin' => $total_admin
         ] ;
     }  
+
+
+
+    // model for doctor 
+
+    public function getAllDoctorByCentralAdmin($central_admin_id) {
+        $this->db->select('username');
+        $this->db->select('login_id');
+        $this->db->from('login');
+        $this->db->where('level', 3); // Level 3 represents doctors
+        $this->db->where('register_by_id', $central_admin_id); // Registered by this Central Admin
+        
+        $query = $this->db->get();
+        
+        // Debug the query
+        echo $this->db->last_query(); // This will print the query being executed
+        return $query->result_array(); // Return the array of doctors
+    }
 }
     
 

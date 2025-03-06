@@ -129,12 +129,18 @@
     <select name="register_by_id" id="registerByDropdown" style="display:none;">
         <!-- Users (e.g., Central Admin, Doctor, Health Worker) will be populated dynamically -->
     </select>
-
-    <!-- Region input, hidden by default (only for Central Admin) -->
-    <div id="regionInputDiv" style="display:none;">
-        <input type="text" name="region" id="regionInput" placeholder="Enter Region">
-    </div>
-
+        <!-- Dropdown for region (only for Central Admin) -->
+        <div id="regionDropdownDiv" style="display:none;">
+                <label for="region">Select Region:</label>
+                <select name="region_id" id="regionDropdown">
+                    <!-- Regions will be dynamically populated here -->
+                </select>
+            </div>    
+        <!-- Region input, hidden by default (only for Central Admin) -->
+        <div id="regionInputDiv" style="display:none;">
+            <input type="text" name="region" id="regionInput" placeholder="Enter Region">
+        </div>
+ 
     <select name="status" required>
         <option value="1">Active</option>
         <option value="0">Inactive</option>
@@ -212,9 +218,10 @@
 <script>
     function handleRoleChange(selectedLevel) {
         if (selectedLevel == "2") {
-            document.getElementById("regionInputDiv").style.display = "block"; // Show region input for Central Admin
-            document.getElementById("registerByDropdown").style.display = "none"; // Hide register_by_id for Central Admin
-        } else {
+            document.getElementById("regionDropdownDiv").style.display = "block"; // Show region dropdown for Central Admin
+        document.getElementById("registerByDropdown").style.display = "none"; // Hide register_by_id for Central Admin// Hide register_by_id for Central Admin
+        fetchRegions()     
+    } else {
             document.getElementById("regionInputDiv").style.display = "none"; // Hide region input for others
             document.getElementById("registerByDropdown").style.display = "block"; // Show register_by_id for Doctor, Health Worker, etc.
 
@@ -222,6 +229,25 @@
             fetchUsersByRole(selectedLevel);
         }
     }
+    function fetchRegions() {
+    $.ajax({
+        url: '<?= base_url("Dashboard/getRegions") ?>', // Your controller method to fetch regions
+        type: 'GET',
+        success: function(response) {
+            var regions = JSON.parse(response);
+            console.log(regions,"regions");
+            var regionDropdown = document.getElementById('regionDropdown');
+            regionDropdown.innerHTML = ''; // Clear existing options
+            
+            regions.forEach(function(region) {
+                var option = document.createElement('option');
+                option.value = region.id; // Assuming 'id' is the primary key of your region table
+                option.textContent = region.region; // Assuming 'region_name' is the name of the region
+                regionDropdown.appendChild(option);
+            });
+        }
+    });
+}
 
     function fetchUsersByRole(selectedLevel) {
         $.ajax({
