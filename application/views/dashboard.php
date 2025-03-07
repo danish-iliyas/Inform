@@ -284,55 +284,68 @@
         document.body.classList.remove('blur-background');
     }
     // geting children data from database
-    function fetchChildren(doctorId ,button) {
-        var childrenDiv = document.getElementById('children-data-container');
-        var doctorName = button.closest('.doctor-card').querySelector('h4').innerText; // Get the doctor's name from the card
-        //   console.log(doctorName ,"doctorName",) ;
+    function fetchChildren(doctorId, button) {
+    var childrenDiv = document.getElementById('children-data-container');
+    var doctorName = button.closest('.doctor-card').querySelector('h4').innerText; // Get the doctor's name from the card
+    //   console.log(doctorName ,"doctorName",) ;
 
-        $.ajax({
-            url: '<?= base_url("Dashboard/children/") ?>' + doctorId, // Controller method to fetch children
-            type: 'GET',
-            success: function(children) {
-                console.log("Raw response:", children);  // Debugging the raw response
-                var headerHtml = '<h3>' + doctorName + '\'s Children</h3>';
+    $.ajax({
+        url: '<?= base_url("Dashboard/children/") ?>' + doctorId, // Controller method to fetch children
+        type: 'GET',
+        success: function(children) {
+            console.log("Raw response:", children);  // Debugging the raw response
+            var headerHtml = '<h3>' + doctorName + '\'s Children</h3>';
 
-                if (children.length > 0) {
-                    var html = '<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">' +
-                        '<thead style="background-color: #f4f4f4; font-weight: bold;">' +
-                        '<tr>' +
-                        '<th style="border: 1px solid #ddd; padding: 8px;">Child Name</th>' +
-                        '<th style="border: 1px solid #ddd; padding: 8px;">Date of Birth</th>' +
-                        '<th style="border: 1px solid #ddd; padding: 8px;">Gender</th>' +
-                        '<th style="border: 1px solid #ddd; padding: 8px;">Father\'s Name</th>' +
-                        '<th style="border: 1px solid #ddd; padding: 8px;">Mother\'s Name</th>' +
-                        '<th style="border: 1px solid #ddd; padding: 8px;">Health Worker Name</th>' +
-                        '</tr></thead><tbody>';
+            if (children.length > 0) {
+                var html = '<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">' +
+                    '<thead style="background-color: #f4f4f4; font-weight: bold;">' +
+                    '<tr>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">Child Name</th>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">Date of Birth</th>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">Gender</th>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">Father\'s Name</th>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">Mother\'s Name</th>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">HW</th>' +
+                    '<th style="border: 1px solid #ddd; padding: 8px;">Action</th>' + // New Action column
+                    '</tr></thead><tbody>';
 
-                    children.forEach(function(child) {
-                        html += '<tr>' +
-                            '<td style="border: 1px solid #ddd; padding: 8px;">' + child.child_name + '</td>' +
-                            '<td style="border: 1px solid #ddd; padding: 8px;">' + child.dateofbirth + '</td>' +
-                            '<td style="border: 1px solid #ddd; padding: 8px;">' + child.gender + '</td>' +
-                            '<td style="border: 1px solid #ddd; padding: 8px;">' + child.father_name + '</td>' +
-                            '<td style="border: 1px solid #ddd; padding: 8px;">' + child.mother_name + '</td>' +
-                            '<td style="border: 1px solid #ddd; padding: 8px;">' + (child.health_worker_name || 'N/A') + '</td>' +
-                            '</tr>';
-                    });
+                children.forEach(function(child) {
+                    html += '<tr>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px;">' + child.child_name + '</td>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px;">' + child.dateofbirth + '</td>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px;">' + child.gender + '</td>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px;">' + child.father_name + '</td>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px;">' + child.mother_name + '</td>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px;">' + (child.health_worker_name || 'N/A') + '</td>' +
+                        '<td style="border: 1px solid #ddd; padding: 8px; text-align: center;">' +
+                            '<span title="Approve" style="color: green; cursor: pointer; margin-right: 10px;">' +
+                                '<i class="fas fa-check-circle"></i>' +
+                            '</span>' +
+                            '<span title="Disapprove" style="color: red; cursor: pointer; margin-right: 10px;">' +
+                                '<i class="fas fa-times-circle"></i>' +
+                            '</span>' +
+                            '<span title="Edit" style="color: blue; cursor: pointer;">' +
+                                '<i class="fas fa-edit"></i>' +
+                            '</span>' +
+                        '</td>' +
+                        '</tr>';
+                });
 
-                    html += '</tbody></table>';
+                html += '</tbody></table>';
 
-                    childrenDiv.innerHTML = headerHtml+ html;
-                } else {
-                    childrenDiv.innerHTML = '<p>No children found for this doctor.</p>';
-                }
-
-                childrenDiv.scrollIntoView({ behavior: 'smooth' });
-            },
-            error: function() {
-                childrenDiv.innerHTML = '<p>Error fetching children data. Please try again later.</p>';
+                childrenDiv.innerHTML = headerHtml + html;
+            } else {
+                childrenDiv.innerHTML = '<p>No children found for this doctor.</p>';
             }
-        });
-    }
+
+            childrenDiv.scrollIntoView({ behavior: 'smooth' });
+        },
+        error: function() {
+            childrenDiv.innerHTML = '<p>Error fetching children data. Please try again later.</p>';
+        }
+    });
+}
+
 </script>
 </body>
 </html>

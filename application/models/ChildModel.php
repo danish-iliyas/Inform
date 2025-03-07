@@ -48,8 +48,8 @@ class ChildModel extends CI_Model {
         $total_children = $this->db->count_all_results('child_registration');
     
         // Fetch the total number of users with level = 2
-        $this->db->where('level', 2); // Add condition for level = 2
-        $total_users = $this->db->count_all_results('login'); // Count users in login table with level 2
+        $this->db->where('level', 2); // Add condition for level = 2 
+        $total_users = $this->db->count_all_results('staff'); // Count users in login table with level 2
         
         // Return the result as an array including both child data and user/child counts
         return [
@@ -61,20 +61,20 @@ class ChildModel extends CI_Model {
     }
     public function getChildrenByDoctor($doctorId) {
         // Select the required child details and health worker name
-        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, login.username as health_worker_name');
+        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.username as health_worker_name');
         
         // From child_partial_registration table
         $this->db->from('child_partial_registration');
         
         // Join the login table to get the health worker's name
-        $this->db->join('login', 'login.login_id = child_partial_registration.healthworker_id');
+        $this->db->join('staff', 'staff.login_id = child_partial_registration.healthworker_id');
         
         // Filter by doctorId (register_by_id corresponds to the doctor's login_id)
-        $this->db->where('login.register_by_id', $doctorId);
+        $this->db->where('staff.register_by_id', $doctorId);
         
         // Ensure the user is a health worker (level = 4) and their account is active (status = 1)
-        $this->db->where('login.level', 4);  // Health Worker level
-        $this->db->where('login.status', 1); // Active status
+        $this->db->where('staff.level', 4);  // Health Worker level
+        $this->db->where('staff.status', 1); // Active status
         
         // Execute the query
         $query = $this->db->get();

@@ -5,7 +5,7 @@ class UserModel extends CI_Model {
         $this->db->where('username', $username);
         $this->db->where('password', $password); // Assuming MD5 hashing
         $this->db->where('status', 1);
-        $query = $this->db->get('login'); // Adjust table name if needed
+        $query = $this->db->get('staff'); // Adjust table name if needed
 
           
         // echo $this->db->last_query(); 
@@ -19,12 +19,12 @@ class UserModel extends CI_Model {
     }
     public function insert_user($data) {
         // Insert the user data into the database
-        return $this->db->insert('login', $data);
+        return $this->db->insert('staff', $data);
     }
 
     public function get_users_by_level($level) {
         $this->db->select('login_id, username');
-        $this->db->from('login');
+        $this->db->from('staff');
         $this->db->where('level', $level);
         $query = $this->db->get();
         
@@ -32,7 +32,7 @@ class UserModel extends CI_Model {
     }
     public function get_user() {
         
-        $query = $this->db->get('login'); // Fetch rows with specific user_id
+        $query = $this->db->get('staff'); // Fetch rows with specific user_id
     
         $result = $query->result_array(); // Get the result as an array
     
@@ -44,18 +44,18 @@ class UserModel extends CI_Model {
     }
     public function delete_user($login_id) {
         $this->db->where('login_id', $login_id);
-        return $this->db->delete('login'); // Adjust the table name as necessary
+        return $this->db->delete('staff'); // Adjust the table name as necessary
     }
     public function update_status($login_id, $status) {
         $this->db->where('login_id', $login_id);
-        return $this->db->update('login', ['status' => $status]); // Adjust the table name as necessary
+        return $this->db->update('staff', ['status' => $status]); // Adjust the table name as necessary
     }
     public function all_user() {
         $this->db->where('level', 2); // Add condition for level = 2
-        $total_users = $this->db->count_all_results('login');
+        $total_users = $this->db->count_all_results('staff');
 
         $this->db->where('level', 1); // Add condition for level = 2    
-        $total_admin = $this->db->count_all_results('login');
+        $total_admin = $this->db->count_all_results('staff');
         return [
             'total_users' => $total_users,
             'total_admin' => $total_admin
@@ -69,7 +69,7 @@ class UserModel extends CI_Model {
     public function getAllDoctorByCentralAdmin($central_admin_id) {
         $this->db->select('username');
         $this->db->select('login_id');
-        $this->db->from('login');
+        $this->db->from('staff');
         $this->db->where('level', 3); // Level 3 represents doctors
         $this->db->where('register_by_id', $central_admin_id); // Registered by this Central Admin
         
