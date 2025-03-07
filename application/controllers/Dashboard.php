@@ -52,12 +52,17 @@ class Dashboard extends CI_Controller {
             //checking  of the data 
             // print_r($data['level']); //outpot = 2
             // die();
-            $this->load->model('UserModel');
+            if($data['level'] == 2){
+                $this->getAllDoctorUnderCentralAdmin();
+            }else{
+                   $this->load->model('UserModel');
                 $this->UserModel->all_user();
                 $data['total_users'] = $this->UserModel->all_user()['total_users'];
                 $data['total_admin'] = $this->UserModel->all_user()['total_admin'];
             $this->load->view('dashboard', $data);
-			// $this->load->view('includes/footer'); 
+			$this->load->view('includes/footer'); 
+            }
+         
 
         } else {
             
@@ -65,7 +70,36 @@ class Dashboard extends CI_Controller {
         }
        
 	}
-       
+    public function getAllDoctorUnderCentralAdmin() {
+		
+		if ($this->session->userdata('user_id') !== NULL && $this->session->userdata('level') == 2) {
+			// Only allow Central Admin access (level = 2)
+			
+			$this->load->model('UserModel');
+	
+			$central_admin_id = $this->session->userdata('user_id'); // Get the current Central Admin ID
+			     $data['user_id'] = $this->session->userdata('user_id');
+				 $data['level'] = $this->session->userdata('level');
+				 $data['username'] = $this->session->userdata('username');
+			// Fetch doctors for this Central Admin
+			$data['doctors'] = $this->UserModel->getAllDoctorByCentralAdmin($central_admin_id); 
+			// print_r($data['doctors']);
+			
+			// Debug doctors array
+			// print_r($data['doctors']);
+			// die("Doctor data");
+
+			 
+			// Other data (like active user count)
+			$data['doctor_count'] = count($data['doctors']); // Count of doctors
+			
+			// Load the dashboard view
+			$this->load->view('dashboard', $data);
+		} else {
+			redirect('login');
+		}
+	}
+	
 	public function child_information() {
         if ($this->session->userdata('user_id') !== NULL) {
             $this->load->model('ChildModel');
@@ -192,10 +226,35 @@ class Dashboard extends CI_Controller {
         echo json_encode($regions); // Send regions data as JSON
     }
     
+   public function children($doctorId) {
+    $this->load->model('ChildModel');
+    //  print_r($doctorId,"jkddjdfhjdsfhdf");
+    // Debugging: print to log and browser
+    log_message('debug', 'Children function called with doctorId: ' . $doctorId);
+    echo "Controller hit with doctorId: $doctorId";
+
+    // Fetch children data by doctor ID
+    $children = $this->ChildModel->getChildrenByDoctor($doctorId);
+    // print_r($children,"dhsjhdjsd");
+    // Clear output buffer to remove any unexpected output (e.g., whitespace)
+    ob_clean();
+    
+    // Set the content type to JSON
+    header('Content-Type: application/json');
+    
+    // Return the children data as a JSON response
+    echo json_encode($children);
+    
+    // Terminate the script to avoid any further output
+    exit;
+}
+
     
     
     
     
     
     
+    
+     
 }

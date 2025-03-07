@@ -110,7 +110,7 @@ class Login extends CI_Controller {
 				 $data['username'] = $this->session->userdata('username');
 			// Fetch doctors for this Central Admin
 			$data['doctors'] = $this->UserModel->getAllDoctorByCentralAdmin($central_admin_id); 
-			print_r($data['doctors']);
+			// print_r($data['doctors']);
 			
 			// Debug doctors array
 			// print_r($data['doctors']);

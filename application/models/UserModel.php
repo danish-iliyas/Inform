@@ -76,7 +76,7 @@ class UserModel extends CI_Model {
         $query = $this->db->get();
         
         // Debug the query
-        echo $this->db->last_query(); // This will print the query being executed
+        // echo $this->db->last_query(); // This will print the query being executed
         return $query->result_array(); // Return the array of doctors
     }
 }

@@ -28,7 +28,7 @@
     <?php elseif ($level == 2): ?>
         <h1> <?php echo $username; ?> ! Overview</h1>
         <div class="header-right">
-            <input type="search" placeholder="Search...">
+            <!-- <input type="search" placeholder=""> --> 
             <button class="btn-notify"><i class="icon-bell"></i></button>
             <div class="logout">
             <img class="user-avatar" src="<?php echo base_url('assets/images/zmqlogo.png'); ?>" alt="Logo">

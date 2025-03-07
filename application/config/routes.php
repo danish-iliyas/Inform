@@ -59,5 +59,8 @@ $route['employee_info'] = 'Dashboard/employee_information';
 $route['add_employee'] = 'Registration/addemployee';
 $route['delete_user/(:num)'] = 'Registration/delete_user/$1';
 
+$route['Dashboard/children/(:num)'] = 'Dashboard/children/$1';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
