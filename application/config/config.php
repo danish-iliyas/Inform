@@ -23,12 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
- $config['base_url'] = 'http://localhost/Inform/';
-// $config['base_url'] = 'http://192.168.1.16/InformProjectDashboard/';
+//$config['base_url'] = 'http://localhost/Inform/';
+$config['base_url'] = 'http://192.168.1.17/Inform/';
 
 /*
 |----------------------------------------------------------------------------
-| Index File
+| Index `
 |--------------------------------------------------------------------------
 |
 | Typically this will be your index.php file, unless you've renamed it to

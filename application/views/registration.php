@@ -4,6 +4,75 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/css/sliderbar.css'); ?>">
 <!--   copy for different role end        -->
 
+<style>
+   /* General popup styles */
+.popup {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+.btn-close {
+    float: right;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.child-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Flexbox for two-column layout */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow items to wrap to the next line when necessary */
+}
+
+/* Form Column */
+.form-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 220px; /* Ensure the columns don't get too narrow */
+}
+
+/* Input and Select styling */
+.form-column input, .form-column select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+/* Submit Button Styling */
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+</style>
+    
 <?php if ($level == 2): ?>
 <div class="dashboard">
 <!-- child_information -->
@@ -26,24 +95,48 @@
                     <p>12 Pending</p>
                 </div> -->
             </section>
-            <div class="popup-overlay"  style="display: none; position: relative ;" id="popupOverlay">
-             <div class="popup">
-            <button class="btn-close"  onclick="closePopup()">X</button>
-            <h2>Register New Child</h2>
-            <p>Please fill in the form below to register a new child.</p>
-            <form action="<?= base_url().'add_child' ?>"  method="post">
-                <input type="text" name="name" placeholder="Child's Name" required>
-                <input type="text" name="father_name" placeholder="Father's Name" required>
-                <input type="text" name="mother_name" placeholder="Mother's Name" required>
-                <select name="gender" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+          <div class="popup-overlay" style="display: none; position: relative;" id="popupOverlay">
+    <div class="popup">
+        <button class="btn-close" onclick="closePopup()">X</button>
+        <h2>Register New Child</h2>
+        <p>Please fill in the form below to register a new child.</p>
+
+        <form action="<?= base_url().'add_child' ?>" method="post" class="child-form">
+            <!-- Form split into two parts -->
+            <div class="form-container">
+                <!-- Left Side: Name, Father's Name, Mother's Name -->
+                <div class="form-column">
+                    <input type="text" name="name" placeholder="Child's Name" required>
+                    <input type="text" name="father_name" placeholder="Father's Name" required>
+                    <input type="text" name="mother_name" placeholder="Mother's Name" required>
+                </div>
+
+                <!-- Right Side: Gender and other fields -->
+                <div class="form-column">
+                    <select name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    <select name="region_id" id="regionDropdown">
+                        <!-- Regions will be dynamically populated here -->
+                    </select>
+
+                    <select name="register_by_id" id="registerByDropdown" style="display:none;">
+                        <!-- Users (e.g., Central Admin, Doctor, Health Worker) will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
                 <button type="submit" class="btn-submit">Submit</button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>
+
             <section class="users-section">
                 <!-- <h2>Manage Child</h2> for feature -->
                 <button class="btn-add-user" id = "openPopup" onclick="openPopup()"> Child Registrations</button>
