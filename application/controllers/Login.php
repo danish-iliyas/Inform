@@ -53,7 +53,8 @@ class Login extends CI_Controller {
 						$data['user_id'] = $this->session->userdata('user_id');
 						$data['level'] = $this->session->userdata('level');
 						$data['username'] = $this->session->userdata('username'); 
-						redirect('Dashboard');
+						// redirect('Dashboard');
+						print_r($data);
 						$this->load->view('dashboard', $data); 
 						break;
 	
@@ -64,12 +65,21 @@ class Login extends CI_Controller {
 	
 					case 3: // Doctor
 						// Load doctor-specific dashboard or view
-						$this->load->view('doctor_dashboard', ['username' => $user->username]);
+						$data['user_id'] = $this->session->userdata('user_id');
+						$data['level'] = $this->session->userdata('level');
+						$data['username'] = $this->session->userdata('username'); 
+						print_r($data);
+						$this->load->view('dashboard',$data);
 						break;
 	
 					case 4: // Health Worker
 						// Load health worker-specific dashboard or view
-						$this->load->view('health_worker_dashboard', ['username' => $user->username]);
+						// $this->load->view('health_worker_dashboard', ['username' => $user->username]);
+						$data['user_id'] = $this->session->userdata('user_id');
+						$data['level'] = $this->session->userdata('level');
+						$data['username'] = $this->session->userdata('username'); 
+						print_r($data);
+						$this->load->view('dashboard',$data);
 						break;
 	
 					case 5: // User

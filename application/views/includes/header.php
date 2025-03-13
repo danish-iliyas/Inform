@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <header>
-    <?php if ($level == 0): ?>
-        <?php  print_r($level); 
-        die();?>
+    <?php if ($level == 3): ?>
+        <!-- <//?php  print_r($level);  -->
+        
         <h1><?php echo $username; ?> ! Dashboard Overview</h1>
         <div class="header-right">
-            <input type="search" placeholder="Search...">
+            <!-- <input type="search" placeholder="Search..."> -->
             <button class="btn-notify"><i class="icon-bell"></i></button>
             <div class="logout">
             <img class="user-avatar" src="<?php echo base_url('assets/images/zmqlogo.png'); ?>" alt="Logo">
@@ -20,6 +20,16 @@
         <h1> <?php echo $username; ?> !  Overview</h1>
         <div class="header-right">
             <input type="search" placeholder="Search...">
+            <button class="btn-notify"><i class="icon-bell"></i></button>
+            <div class="logout">
+            <img class="user-avatar" src="<?php echo base_url('assets/images/zmqlogo.png'); ?>" alt="Logo">
+            <button class="btn-logout"><a href="<?= base_url().'logout' ?>">Logout</a></button>
+            </div>
+        </div>
+        <?php elseif ($level == 4): ?>
+        <h1> <?php echo $username; ?> !  Overview</h1>
+        <div class="header-right">
+            <!-- <input type="search" placeholder="Search..."> -->
             <button class="btn-notify"><i class="icon-bell"></i></button>
             <div class="logout">
             <img class="user-avatar" src="<?php echo base_url('assets/images/zmqlogo.png'); ?>" alt="Logo">

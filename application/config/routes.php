@@ -54,12 +54,13 @@ $route['login'] = 'Login/login_post';
 $route['logout'] = 'Login/logout';
 $route['child_info'] = 'Dashboard/child_information';
 
-$route['add_child'] = 'Registration/addchilddata';
+// $route['add_child'] = 'Registration/addchilddata';
 $route['employee_info'] = 'Dashboard/employee_information';
 $route['add_employee'] = 'Registration/addemployee';
-$route['delete_user/(:num)'] = 'Registration/delete_user/$1';
+// $route['delete_user/(:num)'] = 'Registration/delete_user/$1';
+$route['viewChildrenData'] = 'Dashboard/fetchChildInformation';
 
-$route['Dashboard/children/(:num)'] = 'Dashboard/children/$1';
+// $route['Dashboard/children/(:num)'] = 'Dashboard/children/$1';
 
 
 $route['404_override'] = '';

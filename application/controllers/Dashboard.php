@@ -100,37 +100,37 @@ class Dashboard extends CI_Controller {
 		}
 	}
 	
-	public function child_information() {
-        if ($this->session->userdata('user_id') !== NULL) {
-            $this->load->model('ChildModel');
-            $user_id = $this->session->userdata('user_id'); // Get the user ID from session
+	// public function child_information() {
+    //     if ($this->session->userdata('user_id') !== NULL) {
+    //         $this->load->model('ChildModel');
+    //         $user_id = $this->session->userdata('user_id'); // Get the user ID from session
             
-            // Get total number of children registered by the user
-            $children_data = $this->ChildModel->get_children_by_user($user_id);
+    //         // Get total number of children registered by the user
+    //         $children_data = $this->ChildModel->get_children_by_user($user_id);
 
-            // Pass children and total count to the view
-            $data['children'] = $children_data['children'];
-            $data['total_children'] = $children_data['total_children'];
+    //         // Pass children and total count to the view
+    //         $data['children'] = $children_data['children'];
+    //         $data['total_children'] = $children_data['total_children'];
                
 			  
-	   	    // print_r($data['total_children']);
-            // die("hi");
+	//    	    // print_r($data['total_children']);
+    //         // die("hi");
 
-            $data['level'] = $this->session->userdata('level');
-			$data['username'] = $this->session->userdata('username');
+    //         $data['level'] = $this->session->userdata('level');
+	// 		$data['username'] = $this->session->userdata('username');
 			
 			
-	   	    // print_r($data['username']);
-            // exit(); // or die();
-            // Load the child information view			
-			$this->load->view('includes/sliderbar', $data); 
-            $this->load->view('registration', $data);
-        } 
+	//    	    // print_r($data['username']);
+    //         // exit(); // or die();
+    //         // Load the child information view			
+	// 		$this->load->view('includes/sliderbar', $data); 
+    //         $this->load->view('registration', $data);
+    //     } 
 		  
-		else {
-            redirect('login');
-        }
-    }
+	// 	else {
+    //         redirect('login');
+    //     }
+    // }
 
 	
 	public function employee_information() {
@@ -250,7 +250,49 @@ class Dashboard extends CI_Controller {
 }
 
     
+    // for Specific doctor getting child information 
+    // public function child_information() {
+    //     $this->load->model('ChildModel');  // Replace 'YourModelName' with the actual name of your model
+    //     $doctorId = $this->session->userdata('user_id');
+    //     // print_r($doctorId);
+    //     // echo("hi");
+    //     // die();
+    //     $level = $this->session->userdata('level');  
+    //     // $username = $this->session->userdata('username');
+    //     $data['username'] = $this->session->userdata('username');
+    //     $data['level'] = $level;  // Assuming you store the doctor's login ID in session
+    //     $data['children'] = $this->ChildModel->getChildrenByDoctorLevel($doctorId);  // Fetch the child information for this doctor
+    //     print_r($data['children']);
+    //     $this->load->view('child_information', $data);  // Pass the data to the view
+    // }
     
+    
+    public function fetchChildInformation() {
+        // Fetch the user level from the session
+        $level = $this->session->userdata('level');
+        $userId = $this->session->userdata('user_id');
+        $username = $this->session->userdata('username');
+         print_r($level);
+         print_r($userId);
+         print_r($username);
+        // Load the Child model
+        $this->load->model('ChildModel');
+    
+        // Initialize an empty array for children data
+        $data['children'] = [];
+        $data['level'] = $level;  // Pass the user level to the view
+        $data['username'] = $username;
+    
+        // Check the user's level and fetch the children data accordingly
+        if ($level == 3) {  // Doctor
+            $data['children'] = $this->ChildModel->getChildrenByDoctorLevel($userId);
+        } elseif ($level == 4) {  // Health Worker
+            $data['children'] = $this->ChildModel->getChildrenByHealthWorkerId($userId);
+        }
+    
+        // Load the view and pass the data array, including the level
+        $this->load->view('child_information', $data);
+    }
     
     
     

@@ -9,20 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="dashboard">
- 
-                     
-               <!-- // Correctly accessing the 'level' value
-                print_r($level);  //output = 0,1,2
-                 exit;
-       -->
-        <div class="containersliderandmaincontent " style ="display: flex; width: 100%;">
-      <?php $this->load->view('includes/sliderbar'); ?>
+        <div class="dashboard">                 
+                <!-- // Correctly accessing the 'level' value
+                    print_r($level);  //output = 0,1,2
+                    exit;
+        -->
+            <div class="containersliderandmaincontent " style ="display: flex; width: 100%;">
+        <?php $this->load->view('includes/sliderbar'); ?>
 
          <!-- Main Content -->
 
         <!--  copy for different role start -->
-         <?php if ($level == 0): ?>
+         <?php if ($level == 4): ?>
         <div class="main-content">
         <?php $this->load->view('includes/header'); ?>
       
@@ -120,7 +118,7 @@
 
 
          <!--  copy for different role start -->
-         <?php elseif ($level == 1): ?>
+         <?php elseif ($level == 3): ?>
         <div class="main-content">
             <!-- Header section -->
         <?php $this->load->view('includes/header'); ?>
@@ -128,18 +126,18 @@
             <section class="stats-section">
                 <div class="stats-card">
                     <h3>Total Users</h3>
-                   <!-- <?php print_r($total_users);
+                   <!-- <?php ;
                     // die();?>-->
     
-                    <p><?php echo $total_users; ?></p>
+                   
                 </div>
                 <div class="stats-card">
                     <h3>Total children Registrations</h3>
-                    <p> <?php echo $total_children; ?></p>
+                    <p> <?php ?></p>
                 </div>
                 <div class="stats-card">
                     <h3>Admin</h3>
-                    <p><?php echo $total_admin; ?></p>
+                    
                 </div>
                 <!-- <div class="stats-card">
                     <h3>Admin Tasks</h3>
