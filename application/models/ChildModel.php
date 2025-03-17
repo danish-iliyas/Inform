@@ -117,7 +117,7 @@ class ChildModel extends CI_Model {
         $query = $this->db->get();
         
         // Debug the generated SQL query
-        echo $this->db->last_query();  // This will display the query in the output
+        // echo $this->db->last_query();  // This will display the query in the output
 
         // Check if any rows were returned
         if ($query->num_rows() > 0) {

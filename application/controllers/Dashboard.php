@@ -272,9 +272,9 @@ class Dashboard extends CI_Controller {
         $level = $this->session->userdata('level');
         $userId = $this->session->userdata('user_id');
         $username = $this->session->userdata('username');
-         print_r($level);
-         print_r($userId);
-         print_r($username);
+        //  print_r($level);
+        //  print_r($userId);
+        //  print_r($username);
         // Load the Child model
         $this->load->model('ChildModel');
     

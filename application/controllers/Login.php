@@ -54,7 +54,7 @@ class Login extends CI_Controller {
 						$data['level'] = $this->session->userdata('level');
 						$data['username'] = $this->session->userdata('username'); 
 						// redirect('Dashboard');
-						print_r($data);
+						// print_r($data);
 						$this->load->view('dashboard', $data); 
 						break;
 	
@@ -68,7 +68,7 @@ class Login extends CI_Controller {
 						$data['user_id'] = $this->session->userdata('user_id');
 						$data['level'] = $this->session->userdata('level');
 						$data['username'] = $this->session->userdata('username'); 
-						print_r($data);
+						// print_r($data);
 						$this->load->view('dashboard',$data);
 						break;
 	

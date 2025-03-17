@@ -8,10 +8,10 @@
    /* General popup styles */
 .popup {
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 500px;
     margin: auto;
 }
 
@@ -34,7 +34,7 @@
 .form-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap; /* Allow items to wrap to the next line when necessary */
 }
 
@@ -211,7 +211,7 @@
     <input type="password" name="password" placeholder="Password" required>
 
     <select name="level" id="levelSelect" onchange="handleRoleChange(this.value)">
-        <option value="1">Admin</option>
+        <option value="">Select level</option>
         <option value="2">Central Admin</option>
         <option value="3">Doctor</option>
         <option value="4">Health Worker</option>
@@ -309,19 +309,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    function handleRoleChange(selectedLevel) {
-        if (selectedLevel == "2") {
-            document.getElementById("regionDropdownDiv").style.display = "block"; // Show region dropdown for Central Admin
-        document.getElementById("registerByDropdown").style.display = "none"; // Hide register_by_id for Central Admin// Hide register_by_id for Central Admin
-        fetchRegions()     
-    } else {
-            document.getElementById("regionInputDiv").style.display = "none"; // Hide region input for others
-            document.getElementById("registerByDropdown").style.display = "block"; // Show register_by_id for Doctor, Health Worker, etc.
+   function handleRoleChange(selectedLevel) {
+    // Reset the display of region dropdown and input
+    document.getElementById("regionDropdownDiv").style.display = "none";  // Hide region dropdown by default
+    document.getElementById("regionInputDiv").style.display = "none";     // Hide region input by default
+    document.getElementById("registerByDropdown").style.display = "block"; // Show register_by_id by default
 
-            // Fetch and populate the register_by_id dropdown based on the selected level
-            fetchUsersByRole(selectedLevel);
-        }
+    if (selectedLevel == "2") {
+        // Show region dropdown for Central Admin
+        document.getElementById("regionDropdownDiv").style.display = "block";
+        // Hide register_by_id for Central Admin
+        document.getElementById("registerByDropdown").style.display = "none";
+        fetchRegions();  // Fetch regions if Central Admin is selected
+    } else {
+        // For other roles, show region input or other relevant content if needed
+        document.getElementById("registerByDropdown").style.display = "block"; // Show register_by_id for other roles
+        fetchUsersByRole(selectedLevel);  // Fetch users based on the selected level (Doctor, Health Worker, etc.)
     }
+}
+
     function fetchRegions() {
     $.ajax({
         url: '<?= base_url("Dashboard/getRegions") ?>', // Your controller method to fetch regions
