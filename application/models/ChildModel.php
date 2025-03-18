@@ -67,14 +67,14 @@ class ChildModel extends CI_Model {
         $this->db->from('child_partial_registration');
         
         // Join the login table to get the health worker's name
-        $this->db->join('staff', 'staff.login_id = child_partial_registration.healthworker_id');
+        $this->db->join('staff', 'staff.id = child_partial_registration.healthworker_id');
         
-        // Filter by doctorId (register_by_id corresponds to the doctor's login_id)
-        $this->db->where('staff.register_by_id', $doctorId);
+        // Filter by doctorId (creater_id corresponds to the doctor's id)
+        $this->db->where('staff.creater_id', $doctorId);
         
-        // Ensure the user is a health worker (level = 4) and their account is active (status = 1)
+        // Ensure the user is a health worker (level = 4) and their account is active (is_active = 1)
         $this->db->where('staff.level', 4);  // Health Worker level
-        $this->db->where('staff.status', 1); // Active status
+        $this->db->where('staff.is_active', 1); // Active is_active
         
         // Execute the query
         $query = $this->db->get();
@@ -102,16 +102,16 @@ class ChildModel extends CI_Model {
         $this->db->from('child_partial_registration');
         
         // Join the staff table to get the health worker's name
-        $this->db->join('staff', 'staff.login_id = child_partial_registration.healthworker_id');
+        $this->db->join('staff', 'staff.id = child_partial_registration.healthworker_id');
         
         // Ensure health workers are under the logged-in doctor
-        $this->db->where('staff.register_by_id', $doctorId);
+        $this->db->where('staff.creater_id', $doctorId);
         
         // Ensure the health worker is level 4 (Health Worker level)
         $this->db->where('staff.level', 4);
         
         // Ensure the health worker's account is active
-        $this->db->where('staff.status', 1);
+        $this->db->where('staff.is_active', 1);
         
         // Execute the query
         $query = $this->db->get();
@@ -136,13 +136,13 @@ class ChildModel extends CI_Model {
         $this->db->from('child_partial_registration');
         
         // Join the staff table to get the health worker's name
-        $this->db->join('staff', 'staff.login_id = child_partial_registration.healthworker_id');
+        $this->db->join('staff', 'staff.id = child_partial_registration.healthworker_id');
         
-        // Filter by healthWorkerId (login_id corresponds to the health worker's ID)
-        $this->db->where('staff.login_id', $healthWorkerId);
+        // Filter by healthWorkerId (id corresponds to the health worker's ID)
+        $this->db->where('staff.id', $healthWorkerId);
         
-        // Ensure the health worker's account is active (status = 1)
-        $this->db->where('staff.status', 1); // Active status
+        // Ensure the health worker's account is active (is_active = 1)
+        $this->db->where('staff.is_active', 1); // Active is_active
         
         // Execute the query
         $query = $this->db->get();

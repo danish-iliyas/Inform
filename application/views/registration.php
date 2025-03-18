@@ -123,7 +123,7 @@
                         <!-- Regions will be dynamically populated here -->
                     </select>
 
-                    <select name="register_by_id" id="registerByDropdown" style="display:none;">
+                    <select name="creater_id" id="registerByDropdown" style="display:none;">
                         <!-- Users (e.g., Central Admin, Doctor, Health Worker) will be populated dynamically -->
                     </select>
                 </div>
@@ -219,7 +219,7 @@
     </select>
 
     <!-- Register by dropdown (Doctor, Health Worker) -->
-    <select name="register_by_id" id="registerByDropdown" style="display:none;">
+    <select name="creater_id" id="registerByDropdown" style="display:none;">
         <!-- Users (e.g., Central Admin, Doctor, Health Worker) will be populated dynamically -->
     </select>
         <!-- Dropdown for region (only for Central Admin) -->
@@ -234,7 +234,7 @@
             <input type="text" name="region" id="regionInput" placeholder="Enter Region">
         </div>
  
-    <select name="status" required>
+    <select name="is_active" required>
         <option value="1">Active</option>
         <option value="0">Inactive</option>
     </select>
@@ -261,7 +261,7 @@
                         <th>username</th>
                         <th>email</th>
                         <th>level</th>
-                        <th>status</th>
+                        <th>is_active</th>
                         <th>Gender</th>
                         <th>Actions</th>
                     </tr>
@@ -273,23 +273,22 @@
                         <td><?php echo $user['email'] ?></td>
                         <td><?php echo $user['level'] ?></td>
                         <td>
-                            <?php if ($user['status'] === '1'): ?>
-                            <form action="<?= base_url('Dashboard/toggle_status/'.$user['login_id']) ?>" method="post" style="display:inline;">
-                                <input type="hidden" name="status" value="0">
+                            <?php if ($user['is_active'] === '1'): ?>
+                            <form action="<?= base_url('Dashboard/toggle_status/'.$user['id']) ?>" method="post" style="display:inline;">
+                                <input type="hidden" name="is_active" value="0">
                                 <button type="submit" class="btn-deactivate" onclick="return confirm('Are you sure you want to deactivate this user?');">Deactivate</button>
                             </form>
                             <?php else: ?>
-                            <form action="<?= base_url('Dashboard/toggle_status/'.$user['login_id']) ?>" method="post" style="display:inline;">
-                                <input type="hidden" name="status" value="1">
-                                <button type="submit" class="btn-activate" onclick="return confirm('Are you sure you want to activate this user?');">Activate</button>
-                            </form>
+                            <form action="<?= base_url('Dashboard/toggle_status/'.$user['id']) ?>" method="post" style="display:inline;">
+                                <input type="hidden" name="is_active" value="1">
+                                <button type="submit" class="btn-activate" onclick="return confirm('Are you sure you want to activate this user?');">Activate</button>                </form>
                             <?php endif; ?>
                         </td>
                         <td><?php echo $user['gender'] ?></td>
                         <td>
-                            <form action="<?= base_url('delete_user/'.$user['login_id']) ?>" method="post" style="display:inline;">
+                            <form action="<?= base_url('delete_user/'.$user['id']) ?>" method="post" style="display:inline;">
                                 <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
-                            </form>
+                            </form>        
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -313,17 +312,17 @@
     // Reset the display of region dropdown and input
     document.getElementById("regionDropdownDiv").style.display = "none";  // Hide region dropdown by default
     document.getElementById("regionInputDiv").style.display = "none";     // Hide region input by default
-    document.getElementById("registerByDropdown").style.display = "block"; // Show register_by_id by default
+    document.getElementById("registerByDropdown").style.display = "block"; // Show creater_id by default
 
     if (selectedLevel == "2") {
         // Show region dropdown for Central Admin
         document.getElementById("regionDropdownDiv").style.display = "block";
-        // Hide register_by_id for Central Admin
+        // Hide creater_id for Central Admin
         document.getElementById("registerByDropdown").style.display = "none";
         fetchRegions();  // Fetch regions if Central Admin is selected
     } else {
         // For other roles, show region input or other relevant content if needed
-        document.getElementById("registerByDropdown").style.display = "block"; // Show register_by_id for other roles
+        document.getElementById("registerByDropdown").style.display = "block"; // Show creater_id for other roles
         fetchUsersByRole(selectedLevel);  // Fetch users based on the selected level (Doctor, Health Worker, etc.)
     }
 }
@@ -357,10 +356,10 @@
             success: function(response) {
                 var dropdown = $('#registerByDropdown');
                 dropdown.empty(); // Clear previous options
-                // console.log(user.login_id,"user.login_id");
+                // console.log(user.id,"user.id");
                 $.each(response, function(index, user) {
                     dropdown.append($('<option>', {
-                        value: user.login_id,
+                        value: user.id,
                         text: user.username
                     }));
                 });

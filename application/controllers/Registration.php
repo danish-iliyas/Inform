@@ -84,7 +84,7 @@ class Registration extends CI_Controller {
 				'password' => $this->input->post('password'),
 				'level' => $this->input->post('level'),
 				'gender' => $this->input->post('gender'),
-				'status' => $this->input->post('status')
+				'is_active' => $this->input->post('is_active')
 			];
 			print_r($_POST);
 			// die("hi");	
@@ -98,18 +98,18 @@ class Registration extends CI_Controller {
 			// die();
 			
 			if ($level == 2) { // Central Admin
-				// When creating a Central Admin, set the Admin's ID in register_by_id
-				$data['register_by_id'] = $adminId; // Store Admin ID
+				// When creating a Central Admin, set the Admin's ID in creater_id
+				$data['creater_id'] = $adminId; // Store Admin ID
 				$data['region_id'] = $this->input->post('region_id'); // Save region for Central Admin
 			} else if ($level == 3) { // Doctor
-				$data['register_by_id'] = $this->input->post('register_by_id'); // Central Admin's ID
-				print_r($data['register_by_id']);
+				$data['creater_id'] = $this->input->post('creater_id'); // Central Admin's ID
+				print_r($data['creater_id']);
 
 				// die("hi");
 			} else if ($level == 4) { // Health Worker
-				$data['register_by_id'] = $this->input->post('register_by_id'); // Doctor's ID
+				$data['creater_id'] = $this->input->post('creater_id'); // Doctor's ID
 			} else if ($level == 5) { // User
-				$data['register_by_id'] = $this->input->post('register_by_id'); // Health Worker’s ID
+				$data['creater_id'] = $this->input->post('creater_id'); // Health Worker’s ID
 			}
 	
 			$this->load->model('UserModel');
@@ -127,12 +127,12 @@ class Registration extends CI_Controller {
 
 
 
-	public function delete_user($login_id) {
+	public function delete_user($id) {
 		// Load the UserModel model
 		$this->load->model('UserModel');
 	
 		// Call the model function to delete the user
-		$deleted = $this->UserModel->delete_user($login_id);
+		$deleted = $this->UserModel->delete_user($id);
 	
 		// Check if the deletion was successful
 		if ($deleted) {

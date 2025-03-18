@@ -26,6 +26,7 @@
             <p>Please fill in the form below to register a new child.</p>
             <form action="<?= base_url().'add_employee' ?>"  method="post">
                 <input type="text" name="username" placeholder="Employee's Name" required>
+                <!-- <input type="text" name="username" placeholder="Employee's Name" required> -->
                 <input type="email" name="email" placeholder="email" required>
                 <input type="number" name="password" placeholder="Password" required>
                 <select name="level" id="">
@@ -35,7 +36,7 @@
                     <option value="3">Health Worker</option>
                     <option value="4">User</option>
                 </select>
-               <select name="status" id="">
+               <select name="is_active" id="">
                    <option value="1">Active</option>
                    <option value="0">Inactive</option>
                </select>

@@ -42,7 +42,7 @@ class Login extends CI_Controller {
 			
 			if ($user) { 
 				// User authenticated
-				$this->session->set_userdata('user_id', $user->login_id);
+				$this->session->set_userdata('user_id', $user->id);
 				$this->session->set_userdata('username', $user->username);
 				$this->session->set_userdata('level', $user->level); // Save user level in session
 				
@@ -78,7 +78,7 @@ class Login extends CI_Controller {
 						$data['user_id'] = $this->session->userdata('user_id');
 						$data['level'] = $this->session->userdata('level');
 						$data['username'] = $this->session->userdata('username'); 
-						print_r($data);
+						// print_r($data);
 						$this->load->view('dashboard',$data);
 						break;
 	

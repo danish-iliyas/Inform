@@ -197,7 +197,7 @@
                                     <?= $doctor['username'] ?>
                                 </h4>
                                 <!-- Button to view children -->
-                                <button id="view-children-btn" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="fetchChildren(<?= $doctor['login_id'] ?>, this)">
+                                <button id="view-children-btn" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="fetchChildren(<?= $doctor['id'] ?>, this)">
                                     View Children
                                 </button>
                             </div>

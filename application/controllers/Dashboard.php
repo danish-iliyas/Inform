@@ -166,18 +166,18 @@ class Dashboard extends CI_Controller {
             redirect('login');
         }
     }
-    public function toggle_status($login_id) {
+    public function toggle_status($id) {
         // Load the UserModel
         $this->load->model('UserModel');
     
-        // Get the new status from the POST request
-        $new_status = $this->input->post('status');
+        // Get the new is_active from the POST request
+        $new_status = $this->input->post('is_active');
     
-        // Update the user's status in the database
-        $this->UserModel->update_status($login_id, $new_status);
+        // Update the user's is_active in the database
+        $this->UserModel->update_status($id, $new_status);
     
         // Set a flash message for feedback
-        $this->session->set_flashdata('success', 'User status updated successfully.');
+        $this->session->set_flashdata('success', 'User is_active updated successfully.');
     
         // Redirect back to the relevant page
         redirect('employee_info'); // Adjust this route as needed

@@ -4,7 +4,7 @@ class UserModel extends CI_Model {
     public function authenticate($username, $password) {
         $this->db->where('username', $username);
         $this->db->where('password', $password); // Assuming MD5 hashing
-        $this->db->where('status', 1);
+        $this->db->where('is_active', 1);
         $query = $this->db->get('staff'); // Adjust table name if needed
 
           
@@ -23,7 +23,7 @@ class UserModel extends CI_Model {
     }
 
     public function get_users_by_level($level) {
-        $this->db->select('login_id, username');
+        $this->db->select('id, username');
         $this->db->from('staff');
         $this->db->where('level', $level);
         $query = $this->db->get();
@@ -42,13 +42,13 @@ class UserModel extends CI_Model {
              // Count the number of children
         ];
     }
-    public function delete_user($login_id) {
-        $this->db->where('login_id', $login_id);
+    public function delete_user($id) {
+        $this->db->where('id', $id);
         return $this->db->delete('staff'); // Adjust the table name as necessary
     }
-    public function update_status($login_id, $status) {
-        $this->db->where('login_id', $login_id);
-        return $this->db->update('staff', ['status' => $status]); // Adjust the table name as necessary
+    public function update_status($id, $is_active) {
+        $this->db->where('id', $id);
+        return $this->db->update('staff', ['is_active' => $is_active]); // Adjust the table name as necessary
     }
     public function all_user() {
         $this->db->where('level', 2); // Add condition for level = 2
@@ -68,10 +68,10 @@ class UserModel extends CI_Model {
 
     public function getAllDoctorByCentralAdmin($central_admin_id) {
         $this->db->select('username');
-        $this->db->select('login_id');
+        $this->db->select('id');
         $this->db->from('staff');
         $this->db->where('level', 3); // Level 3 represents doctors
-        $this->db->where('register_by_id', $central_admin_id); // Registered by this Central Admin
+        $this->db->where('creater_id', $central_admin_id); // Registered by this Central Admin
         
         $query = $this->db->get();
         
