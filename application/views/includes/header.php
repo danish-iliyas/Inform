@@ -7,7 +7,7 @@
     <?php if ($level == 3): ?>
         <!-- <//?php  print_r($level);  -->
         
-        <h1><?php echo $username; ?> ! Dashboard Overview</h1>
+        <h1><?php echo $userid; ?> ! Dashboard Overview</h1>
         <div class="header-right">
             <!-- <input type="search" placeholder="Search..."> -->
             <button class="btn-notify"><i class="icon-bell"></i></button>
@@ -17,17 +17,18 @@
             </div>
         </div>
     <?php elseif ($level == 1): ?>
-        <h1> <?php echo $username; ?> !  Overview</h1>
+        <h1> <?php echo $userid; ?> !  Overview</h1>
         <div class="header-right">
-            <input type="search" placeholder="Search...">
-            <button class="btn-notify"><i class="icon-bell"></i></button>
+
+            <!-- <input type="search" placeholder="Search...">
+            <button class="btn-notify"><i class="icon-bell"></i></button> -->
             <div class="logout">
             <img class="user-avatar" src="<?php echo base_url('assets/images/zmqlogo.png'); ?>" alt="Logo">
             <button class="btn-logout"><a href="<?= base_url().'logout' ?>">Logout</a></button>
             </div>
         </div>
         <?php elseif ($level == 4): ?>
-        <h1> <?php echo $username; ?> !  Overview</h1>
+        <h1> <?php echo $userid; ?> !  Overview</h1>
         <div class="header-right">
             <!-- <input type="search" placeholder="Search..."> -->
             <button class="btn-notify"><i class="icon-bell"></i></button>
@@ -37,12 +38,15 @@
             </div>
         </div>
     <?php elseif ($level == 2): ?>
-        <h1> <?php echo $username; ?> ! Overview</h1>
+        <h1> <?php echo $userid; ?> ! Overview</h1>
         <div class="header-right">
             <!-- <input type="search" placeholder=""> --> 
-            <button class="btn-notify"><i class="icon-bell"></i></button>
+            <!-- <button class="btn-notify"><i class="icon-bell"></i></button> -->
+             <div class="menu"><img style="height: 30px ; , width: 30px, ;" class="menu" src="<?php echo base_url('assets/images/menu.png'); ?>" alt="menu"></div>
+            
             <div class="logout">
             <img class="user-avatar" src="<?php echo base_url('assets/images/zmqlogo.png'); ?>" alt="Logo">
+          
             <button class="btn-logout"><a href="<?= base_url().'logout' ?>">Logout</a></button>
             </div>
         </div> 
@@ -51,3 +55,16 @@
         <p>Content for guests or unauthorized users.</p>
     <?php endif; ?>
 </header>
+<script>
+    const menu = document.querySelector('.menu');
+    const sidebar = document.querySelector('.sidebar');
+
+    menu.addEventListener('click', () => {
+    if (sidebar.style.display === 'block') {
+        sidebar.style.display = 'none'; // Hide it
+    } else {
+        sidebar.style.display = 'block'; // Show it
+    }
+});
+
+</script>

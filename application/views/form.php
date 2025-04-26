@@ -25,8 +25,8 @@
             <h2>Register New Employee</h2>
             <p>Please fill in the form below to register a new child.</p>
             <form action="<?= base_url().'add_employee' ?>"  method="post">
-                <input type="text" name="username" placeholder="Employee's Name" required>
-                <!-- <input type="text" name="username" placeholder="Employee's Name" required> -->
+                <input type="text" name="userid" placeholder="Employee's Name" required>
+                <!-- <input type="text" name="userid" placeholder="Employee's Name" required> -->
                 <input type="email" name="email" placeholder="email" required>
                 <input type="number" name="password" placeholder="Password" required>
                 <select name="level" id="">

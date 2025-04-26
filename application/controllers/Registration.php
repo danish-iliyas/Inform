@@ -68,7 +68,7 @@ class Registration extends CI_Controller {
 			$userData = $this->UserModel->get_user();
 			$data['users'] = $userData['users'];
 			$data['level'] = $this->session->userdata('level');
-			$data['username'] = $this->session->userdata('username');
+			$data['userid'] = $this->session->userdata('userid');
 			
 			$this->load->view('includes/sliderbar', $data); 
 			$this->load->view('form');
@@ -79,7 +79,7 @@ class Registration extends CI_Controller {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Retrieve the data from the POST request
 			$data = [
-				'username' => $this->input->post('username'),
+				'userid' => $this->input->post('userid'),
 				'email' => $this->input->post('email'),
 				'password' => $this->input->post('password'),
 				'level' => $this->input->post('level'),

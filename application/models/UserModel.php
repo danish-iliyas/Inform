@@ -1,8 +1,8 @@
 <?php
 class UserModel extends CI_Model {
 
-    public function authenticate($username, $password) {
-        $this->db->where('username', $username);
+    public function authenticate($userid, $password) {
+        $this->db->where('userid', $userid);
         $this->db->where('password', $password); // Assuming MD5 hashing
         $this->db->where('is_active', 1);
         $query = $this->db->get('staff'); // Adjust table name if needed
@@ -23,7 +23,7 @@ class UserModel extends CI_Model {
     }
 
     public function get_users_by_level($level) {
-        $this->db->select('id, username');
+        $this->db->select('id, userid');
         $this->db->from('staff');
         $this->db->where('level', $level);
         $query = $this->db->get();
@@ -67,7 +67,7 @@ class UserModel extends CI_Model {
     // model for doctor 
 
     public function getAllDoctorByCentralAdmin($central_admin_id) {
-        $this->db->select('username');
+        $this->db->select('userid');
         $this->db->select('id');
         $this->db->from('staff');
         $this->db->where('level', 3); // Level 3 represents doctors

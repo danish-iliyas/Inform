@@ -28,7 +28,7 @@
  
             <form action="<?= base_url('login') ?>" method="POST">
                 <div class="input-group">
-                    <input type="text" name="username" required>
+                    <input type="text" name="userid" required>
                     <label>Username</label>
                 </div>
                 <div class="input-group">

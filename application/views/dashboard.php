@@ -25,11 +25,11 @@
         <?php $this->load->view('includes/header'); ?>
       
             <section class="stats-section">
-                <div class="stats-card">
-                    <h3>Total Users</h3>
-                    <p>1200</p>
-                </div>
-                <div class="stats-card">
+                <!-- <div class="stats-card">
+                    <h3> Users</h3>
+                    <p></p>
+                </div> -->
+                <!-- <div class="stats-card">
                     <h3>Active Users</h3>
                     <p>850</p>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="stats-card">
                     <h3>Admin Tasks</h3>
                     <p>12 Pending</p>
-                </div>
+                </div> -->
             </section>
 
           
@@ -194,7 +194,7 @@
                         <div class="doctor-cards-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
                             <div class="doctor-card" style="width: 200px; background-color: #f4f4f4; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); text-align: center;">
                                 <h4 style="margin-bottom: 10px;">
-                                    <?= $doctor['username'] ?>
+                                    <?= $doctor['userid'] ?>
                                 </h4>
                                 <!-- Button to view children -->
                                 <button id="view-children-btn" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="fetchChildren(<?= $doctor['id'] ?>, this)">

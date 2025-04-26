@@ -41,7 +41,7 @@ class Dashboard extends CI_Controller {
         //     die("hi");
 
           $data['level'] = $level;
-		  $data['username'] = $this->session->userdata('username');
+		  $data['userid'] = $this->session->userdata('userid');
 		//   $data['total_users'] =$total_data['total_users'];
 		  $data['total_children'] = $total_data['total_children']; 
 		//   print_r($data['total_children']); //outpot = 2
@@ -80,7 +80,7 @@ class Dashboard extends CI_Controller {
 			$central_admin_id = $this->session->userdata('user_id'); // Get the current Central Admin ID
 			     $data['user_id'] = $this->session->userdata('user_id');
 				 $data['level'] = $this->session->userdata('level');
-				 $data['username'] = $this->session->userdata('username');
+				 $data['userid'] = $this->session->userdata('userid');
 			// Fetch doctors for this Central Admin
 			$data['doctors'] = $this->UserModel->getAllDoctorByCentralAdmin($central_admin_id); 
 			// print_r($data['doctors']);
@@ -117,10 +117,10 @@ class Dashboard extends CI_Controller {
     //         // die("hi");
 
     //         $data['level'] = $this->session->userdata('level');
-	// 		$data['username'] = $this->session->userdata('username');
+	// 		$data['userid'] = $this->session->userdata('userid');
 			
 			
-	//    	    // print_r($data['username']);
+	//    	    // print_r($data['userid']);
     //         // exit(); // or die();
     //         // Load the child information view			
 	// 		$this->load->view('includes/sliderbar', $data); 
@@ -152,10 +152,10 @@ class Dashboard extends CI_Controller {
             // die("hi");
 
             $data['level'] = $this->session->userdata('level');
-			$data['username'] = $this->session->userdata('username');
+			$data['userid'] = $this->session->userdata('userid');
 			
 			
-	   	    // print_r($data['username']);
+	   	    // print_r($data['userid']);
             // exit(); // or die();
             // Load the child information view			
 			$this->load->view('includes/sliderbar', $data); 
@@ -258,8 +258,8 @@ class Dashboard extends CI_Controller {
     //     // echo("hi");
     //     // die();
     //     $level = $this->session->userdata('level');  
-    //     // $username = $this->session->userdata('username');
-    //     $data['username'] = $this->session->userdata('username');
+    //     // $userid = $this->session->userdata('userid');
+    //     $data['userid'] = $this->session->userdata('userid');
     //     $data['level'] = $level;  // Assuming you store the doctor's login ID in session
     //     $data['children'] = $this->ChildModel->getChildrenByDoctorLevel($doctorId);  // Fetch the child information for this doctor
     //     print_r($data['children']);
@@ -271,17 +271,17 @@ class Dashboard extends CI_Controller {
         // Fetch the user level from the session
         $level = $this->session->userdata('level');
         $userId = $this->session->userdata('user_id');
-        $username = $this->session->userdata('username');
+        $userid = $this->session->userdata('userid');
         //  print_r($level);
         //  print_r($userId);
-        //  print_r($username);
+        //  print_r($userid);
         // Load the Child model
         $this->load->model('ChildModel');
     
         // Initialize an empty array for children data
         $data['children'] = [];
         $data['level'] = $level;  // Pass the user level to the view
-        $data['username'] = $username;
+        $data['userid'] = $userid;
     
         // Check the user's level and fetch the children data accordingly
         if ($level == 3) {  // Doctor

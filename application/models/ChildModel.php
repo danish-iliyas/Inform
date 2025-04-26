@@ -61,7 +61,7 @@ class ChildModel extends CI_Model {
     }
     public function getChildrenByDoctor($doctorId) {
         // Select the required child details and health worker name
-        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.username as health_worker_name');
+        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.userid as health_worker_name');
         
         // From child_partial_registration table
         $this->db->from('child_partial_registration');
@@ -93,7 +93,7 @@ class ChildModel extends CI_Model {
     // get child by specfic Doctor 
     public function getChildrenByDoctorLevel($doctorId) {
         // Select child details along with the health worker's name
-        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.username as health_worker_name');
+        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.userid as health_worker_name');
         // print_r($doctorId);
         // echo("$doctorId");
         // echo("hi");
@@ -130,7 +130,7 @@ class ChildModel extends CI_Model {
     }
     public function getChildrenByHealthWorkerId($healthWorkerId) {
         // Select the required child details and health worker name
-        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.username as health_worker_name');
+        $this->db->select('child_partial_registration.child_name, child_partial_registration.dateofbirth, child_partial_registration.gender, child_partial_registration.father_name, child_partial_registration.mother_name, staff.userid as health_worker_name');
         
         // From child_partial_registration table
         $this->db->from('child_partial_registration');
@@ -157,6 +157,8 @@ class ChildModel extends CI_Model {
         }
     }
     
+    ///
+
     
     
 }

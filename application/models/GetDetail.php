@@ -3,7 +3,7 @@ class GetDetail extends CI_Model {
 
 
     public function get_users_by_level($level) {
-        $this->db->select('id, username');
+        $this->db->select('id, userid');
         $this->db->from('staff');
         $this->db->where('level', $level);
         $query = $this->db->get();

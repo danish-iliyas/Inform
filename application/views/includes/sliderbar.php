@@ -33,7 +33,7 @@
         <?php elseif ($level == 2): ?>
             <div class="sidebar">
             <div class="sidebar-header"> 
-            <h2>Welcome, <?php echo $username; ?>!</h2>
+            <h2>Welcome, <?php echo $userid; ?>!</h2>
             </div>
             <ul class="nav-links">
                 <li><a href="<?php echo site_url('Dashboard'); ?>" class="active"><i class="icon-dashboard"></i> Dashboard</a></li>

@@ -27,23 +27,23 @@ class Login extends CI_Controller {
 	public function login_post() {
 		$this->load->model('UserModel');
 		
-		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('userid', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		
 		if ($this->form_validation->run() === FALSE) {
 			// Load login page with validation errors
 			$this->load->view('login');
 		} else {
-			$username = $this->input->post('username');
+			$userid = $this->input->post('userid');
 			$password = $this->input->post('password');
 			
 			// Check user credentials
-			$user = $this->UserModel->authenticate($username, $password);
+			$user = $this->UserModel->authenticate($userid, $password);
 			
 			if ($user) { 
 				// User authenticated
 				$this->session->set_userdata('user_id', $user->id);
-				$this->session->set_userdata('username', $user->username);
+				$this->session->set_userdata('userid', $user->userid);
 				$this->session->set_userdata('level', $user->level); // Save user level in session
 				
 				// Redirect user based on their level
@@ -52,7 +52,7 @@ class Login extends CI_Controller {
 						// Load admin-specific dashboard or view
 						$data['user_id'] = $this->session->userdata('user_id');
 						$data['level'] = $this->session->userdata('level');
-						$data['username'] = $this->session->userdata('username'); 
+						$data['userid'] = $this->session->userdata('userid'); 
 						// redirect('Dashboard');
 						// print_r($data);
 						$this->load->view('dashboard', $data); 
@@ -67,24 +67,24 @@ class Login extends CI_Controller {
 						// Load doctor-specific dashboard or view
 						$data['user_id'] = $this->session->userdata('user_id');
 						$data['level'] = $this->session->userdata('level');
-						$data['username'] = $this->session->userdata('username'); 
+						$data['userid'] = $this->session->userdata('userid'); 
 						// print_r($data);
 						$this->load->view('dashboard',$data);
 						break;
 	
 					case 4: // Health Worker
 						// Load health worker-specific dashboard or view
-						// $this->load->view('health_worker_dashboard', ['username' => $user->username]);
+						// $this->load->view('health_worker_dashboard', ['userid' => $user->userid]);
 						$data['user_id'] = $this->session->userdata('user_id');
 						$data['level'] = $this->session->userdata('level');
-						$data['username'] = $this->session->userdata('username'); 
+						$data['userid'] = $this->session->userdata('userid'); 
 						// print_r($data);
 						$this->load->view('dashboard',$data);
 						break;
 	
 					case 5: // User
 						// Load user-specific dashboard or view
-						$this->load->view('user_dashboard', ['username' => $user->username]);
+						$this->load->view('user_dashboard', ['userid' => $user->userid]);
 						break;
 	
 					default:
@@ -117,7 +117,7 @@ class Login extends CI_Controller {
 			$central_admin_id = $this->session->userdata('user_id'); // Get the current Central Admin ID
 			     $data['user_id'] = $this->session->userdata('user_id');
 				 $data['level'] = $this->session->userdata('level');
-				 $data['username'] = $this->session->userdata('username');
+				 $data['userid'] = $this->session->userdata('userid');
 			// Fetch doctors for this Central Admin
 			$data['doctors'] = $this->UserModel->getAllDoctorByCentralAdmin($central_admin_id); 
 			// print_r($data['doctors']);

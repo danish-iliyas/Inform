@@ -77,3 +77,36 @@ header h1 {
     /* background-color: #d43f4a; Darker shade on hover */
      text-decoration: none;
 }
+
+.menu{
+    display: none;
+}
+@media (max-width: 425px) {
+   header{
+    width: 100%;
+   }
+   
+    .logout{
+        display: none;
+    }
+    .menu{
+        display:block;
+        position: fixed;
+        top: 33px;
+        right: 30px;
+
+    }
+    header h1{
+        font-size: 15px;
+    }
+    .sidebar{
+        display: none;
+        width: 100%;
+        position: absolute;
+        height: 60vh;
+        top: 100px;
+    }
+    .main-content{
+        margin-left: 0px;
+    }
+}

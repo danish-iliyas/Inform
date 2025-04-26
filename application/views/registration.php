@@ -206,7 +206,7 @@
                 <h2>Register New Employee</h2>
                 <p>Please fill in the form below to register a new employee.</p>
                 <form action="<?= base_url().'add_employee' ?>" method="post">
-    <input type="text" name="username" placeholder="Employee's Name" required>
+    <input type="text" name="userid" placeholder="Employee's Name" required>
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="Password" required>
 
@@ -258,7 +258,7 @@
             <table class="users-table">
                 <thead>
                     <tr>
-                        <th>username</th>
+                        <th>userid</th>
                         <th>email</th>
                         <th>level</th>
                         <th>is_active</th>
@@ -269,7 +269,7 @@
                 <tbody>
                     <?php foreach ($users as $user): ?> 
                     <tr>
-                        <td><?php echo $user['username'] ?></td>
+                        <td><?php echo $user['userid'] ?></td>
                         <td><?php echo $user['email'] ?></td>
                         <td><?php echo $user['level'] ?></td>
                         <td>
@@ -360,7 +360,7 @@
                 $.each(response, function(index, user) {
                     dropdown.append($('<option>', {
                         value: user.id,
-                        text: user.username
+                        text: user.userid
                     }));
                 });
 
