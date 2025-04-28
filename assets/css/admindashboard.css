@@ -230,3 +230,10 @@ body {
         font-size: 0.9em;
     }
 }
+@media (max-width: 425px) {
+    .stats-card {
+     
+        width: 36%;
+        
+    }
+}

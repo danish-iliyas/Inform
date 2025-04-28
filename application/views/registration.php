@@ -1,7 +1,11 @@
+<link rel="stylesheet" href="<?php echo base_url('assets/css/header.css'); ?>">
+
+
 <link rel="stylesheet" href="<?php echo base_url('assets/css/childinformation.css'); ?>">
+
 <!-- Include Google Fonts for better typography -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo base_url('assets/css/sliderbar.css'); ?>">
+
 <!--   copy for different role end        -->
 
 <style>

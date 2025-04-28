@@ -58,7 +58,7 @@ header h1 {
   color: white;
 }
 .btn-logout{
-    background-color: #1abc9c; /* Red color for the logout button */
+    background-color: #2c3e50; /* Red color for the logout button */
     color: white;              /* White text */
     border: none;              /* Remove default border */
     padding: 10px 12px;        /* Padding for the button */
@@ -77,36 +77,49 @@ header h1 {
     /* background-color: #d43f4a; Darker shade on hover */
      text-decoration: none;
 }
-
+.sidebar.active {
+    display: block;
+}
 .menu{
     display: none;
 }
-@media (max-width: 425px) {
-   header{
-    width: 100%;
-   }
-   
-    .logout{
-        display: none;
-    }
-    .menu{
-        display:block;
-        position: fixed;
-        top: 33px;
-        right: 30px;
 
+@media (max-width: 425px) {
+    header{
+     width: 100%;
     }
-    header h1{
-        font-size: 15px;
+    
+     .logout{
+         display: none;
+     }
+     .menu{
+         display:block;
+         position: fixed;
+         top: 33px;
+         right: 30px;
+ 
+     }
+     header h1{
+         font-size: 15px;
+     }
+     .sidebar{
+         display: none;
+         width: 100%;
+         position: absolute;
+         height: 60vh;
+         top: 100px;
+     }
+     .main-content{
+         margin-left: 0px;
+     }
+ }
+
+@media (min-width: 768px) {
+    .sidebar {
+        display: block !important;
     }
-    .sidebar{
-        display: none;
-        width: 100%;
-        position: absolute;
-        height: 60vh;
-        top: 100px;
-    }
-    .main-content{
-        margin-left: 0px;
+
+    .menu {
+        display: none; /* hide menu button on desktop */
     }
 }
