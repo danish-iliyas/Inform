@@ -79,6 +79,14 @@ class UserModel extends CI_Model {
         // echo $this->db->last_query(); // This will print the query being executed
         return $query->result_array(); // Return the array of doctors
     }
+
+    public function getHealthWorkersByDoctor($doctor_id) {
+        $this->db->where('creater_id', $doctor_id);
+        $this->db->where('level', 4); // Level 4 = Health Worker
+        $this->db->where('is_active', 1);
+        return $this->db->get('staff')->result_array();
+    }
+    
 }
     
 

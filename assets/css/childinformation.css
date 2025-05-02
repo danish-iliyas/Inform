@@ -248,4 +248,11 @@ td {
 .btn-activate:hover {
     background-color: #27ae60; /* Darker green on hover */
 }
-     
+     @media(max-width:425px){
+        .main-content{
+            margin-left: 0px;
+        }
+        .sidebar {
+            display: none !important;
+        }
+     }

@@ -54,7 +54,20 @@ class Dashboard extends CI_Controller {
             // die();
             if($data['level'] == 2){
                 $this->getAllDoctorUnderCentralAdmin();
-            }else{
+            }else if($data['level'] == 3){
+                $this->getHealthWorkersUnderDoctor();
+            }elseif($data['level'] == 4){
+                $total_children = $this->ChildModel->getChildrenCountByHW($user_id);
+					    // print($total_children);
+						// print_r($user_id);
+						$data['user_id'] = $user_id;
+						$data['level'] = $this->session->userdata('level');
+						$data['userid'] = $this->session->userdata('userid');
+						$data['total_children'] = $total_children;
+					
+						$this->load->view('dashboard', $data);
+            }
+            else{
                    $this->load->model('UserModel');
                 $this->UserModel->all_user();
                 $data['total_users'] = $this->UserModel->all_user()['total_users'];
@@ -295,8 +308,38 @@ class Dashboard extends CI_Controller {
     }
     
     
+    // doctor login functionality
+    public function children_by_hw($healthworker_id) {
+        $this->load->model('ChildModel'); // replace with your actual model
+        $children = $this->ChildModel->get_children_by_healthworker($healthworker_id); // implement this method
+        // echo "Controller hit with doctorId: $children";
+        echo json_encode($children);
+    }
     
-    
+    public function getHealthWorkersUnderDoctor() {
+		if ($this->session->userdata('user_id') !== NULL && $this->session->userdata('level') == 3) {
+			// Only allow Doctor access (level = 3)
+	
+			$this->load->model('UserModel');
+	
+			$doctor_id = $this->session->userdata('user_id'); // Current Doctor ID
+	
+			$data['user_id'] = $doctor_id;
+			$data['level'] = $this->session->userdata('level');
+			$data['userid'] = $this->session->userdata('userid');
+	
+			// Fetch health workers where 'creater_id' = current doctor
+			$data['health_workers'] = $this->UserModel->getHealthWorkersByDoctor($doctor_id);
+	        //  print_r($data['health_workers']);
+			//  die("hi");
+			$data['health_worker_count'] = count($data['health_workers']);
+	
+			// Load dashboard view for Doctor with HW data
+			$this->load->view('dashboard', $data);
+		} else {
+			redirect('login');
+		}
+	}
     
      
 }

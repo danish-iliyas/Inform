@@ -159,6 +159,18 @@ class ChildModel extends CI_Model {
     
     ///
 
+    public function get_children_by_healthworker($healthworker_id) {
+        $this->db->select('*');
+        $this->db->from('child_partial_registration');
+        $this->db->where('healthworker_id', $healthworker_id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     
+
+    public function getChildrenCountByHW($hw_id) {
+        $this->db->where('healthworker_id', $hw_id);
+        return $this->db->count_all_results('child_partial_registration');
+    }
     
 }
